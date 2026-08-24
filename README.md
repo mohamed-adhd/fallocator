@@ -1,2 +1,3 @@
 # fallocator
-supports malloc/realloc/calloc repo in queue after : mhd_sql
+- supports malloc/realloc/calloc 
+- status : in progress
