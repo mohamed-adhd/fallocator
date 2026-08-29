@@ -6,6 +6,6 @@ program platform
             import :: c_size_t, c_ptr
             integer(c_size_t), value :: size
             type(c_ptr) :: ptr
-        end function gimme_ram
+            end function gimme_ram
     end interface
 end program platform
