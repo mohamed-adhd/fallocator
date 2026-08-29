@@ -1,3 +1,3 @@
 # fallocator
-- supports malloc/realloc/calloc 
+- supports malloc/realloc 
 - status : in progress
