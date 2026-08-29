@@ -19,7 +19,9 @@ module heap
   function swap (ptr,i) result (ptr)
     type(block), pointer :: part1 => null()
     type(block), pointer :: part2 => null()
-
+    part1%size=i
+    part1%state=FALSE
+    part1%prev=>ptr%prev
   end function
 
 end module heap
