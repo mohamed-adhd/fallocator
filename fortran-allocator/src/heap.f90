@@ -6,8 +6,17 @@ module heap
       type(c_ptr) :: start = c_null_ptr
   end type heap
   contains
-  subroutine split
+  subroutine split(ptr, i)
 
+    type(block), pointer, intent(inout) :: ptr
+    integer(c_size_t), intent(in) :: i
+    type(c_ptr) :: ptr_addr
+    type(c_ptr) :: new_addr
+    type(c_ptr) :: old_next
+    type(block), pointer :: new_block
+    old_next = ptr%next
+    ptr_addr = c_loc(ptr)
+ 
   end subroutine split
   function find(i,h) result(ptr)
     type(c_ptr) :: current_addr
