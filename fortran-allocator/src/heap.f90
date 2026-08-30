@@ -7,7 +7,8 @@ module heap
   end type heap
   contains
   subroutine split(ptr, i)
-
+    integer(c_intptr_t) :: addr
+    integer(c_intptr_t) :: new_addr_int
     type(block), pointer, intent(inout) :: ptr
     integer(c_size_t), intent(in) :: i
     type(c_ptr) :: ptr_addr
@@ -16,7 +17,15 @@ module heap
     type(block), pointer :: new_block
     old_next = ptr%next
     ptr_addr = c_loc(ptr)
- 
+    addr = transfer(c_loc(ptr), addr)
+    new_addr_int = addr + c_sizeof(ptr) + i
+    new_addr = transfer(new_addr_int, new_addr)
+    call c_f_pointer(new_addr, new_block)
+    new_block%size  = ptr%size - i - c_sizeof(ptr)
+    new_block%state = .false._c_bool
+    new_block%prev  = c_loc(ptr)
+    new_block%next  = old_next
+
   end subroutine split
   function find(i,h) result(ptr)
     type(c_ptr) :: current_addr
