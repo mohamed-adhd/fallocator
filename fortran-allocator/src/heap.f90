@@ -55,7 +55,19 @@ module heap
       current_addr = current%next
     end do
   end function find
-  function checkme(i) result(res)
-
+  function checkme(h) result(res)
+    type(heap), intent(in) :: h
+    integer :: res
+    integer :: counter
+    type(c_ptr) :: current_addr
+    type(block), pointer :: current
+    counter = 0
+    current_addr = h%start
+    do while (c_associated(current_addr))
+      call c_f_pointer(current_addr, current)
+      counter = counter + 1
+      current_addr = current%next
+    end do
+    res = counter
   end function checkme
 end module heap

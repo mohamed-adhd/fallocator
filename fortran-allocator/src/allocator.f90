@@ -27,15 +27,16 @@ program shi
 
             ]!cooking straight poison , aint no way a human being ever thought of this idea ever , like , no words twin walah
     integer :: i
-    call execute_command_line('clear')
-    do i = 1, 10
-        print *,banner(i)
-    end do
-    print *,status
-    print *,fm
-    print *,tb
-    print *,allocate
+
     do while (ios/=-1)
+        call execute_command_line('clear')
+        do i = 1, 10
+            print *,banner(i)
+        end do
+        print *,status
+        print *,fm
+        print *,tb
+        print *,allocate
         do
             read(*,*, iostat=ios) how_much_for_a_banana
             if (ios == 0) then
@@ -44,7 +45,8 @@ program shi
                     if(ios>100)
                         print *,wtf
                     else
-                        find(ios)
+                        find(ios,hippie)
+
                     end if
                 end if
             else
