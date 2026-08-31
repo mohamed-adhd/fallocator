@@ -1,5 +1,7 @@
 module heap
   use blocks
+
+  use platform
   use, intrinsic :: iso_c_binding
   implicit none
     type::heap
@@ -12,6 +14,8 @@ module heap
     integer(c_intptr_t) :: addr
     integer(c_intptr_t) :: new_addr_int
     type(c_ptr) :: new_addr
+    type(block), pointer :: new_block
+    type(c_ptr) :: osram
     type(c_ptr) :: old_next
     type(block), pointer :: new_block
     type(block), pointer :: next_block
@@ -54,6 +58,23 @@ module heap
       end if
       current_addr = current%next
     end do
+    osram=gimme_ram(i)
+    call c_f_pointer(osram, new_block)
+
+
+
+
+
+
+
+
+
+
+    
+    new_block%size  = i - c_sizeof(new_block)
+    new_block%state = .false._c_bool
+    new_block%next  = c_null_ptr
+    new_block%prev  = c_null_ptr
   end function find
   function checkme(h) result(res)
     type(heap), intent(in) :: h
