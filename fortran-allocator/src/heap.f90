@@ -1,4 +1,4 @@
-module heap
+module heapy
   use blocks
 
   use platform
@@ -16,8 +16,8 @@ module heap
     type(c_ptr) :: new_addr
     type(block), pointer :: new_block
     type(c_ptr) :: osram
+    integer::header_size=c_sizeof(block)
     type(c_ptr) :: old_next
-    type(block), pointer :: new_block
     type(block), pointer :: next_block
     old_next = ptr%next!at some point u realise this shi is not worth it walah
     addr = transfer(c_loc(ptr), addr)
@@ -37,6 +37,8 @@ module heap
     end if
   end subroutine split
   function findy(i,h) result(ptr)
+    type(c_ptr) :: osram
+    type(block), pointer :: new_block
     type(c_ptr) :: current_addr
     logical::done
     type(block), pointer :: current
@@ -47,31 +49,38 @@ module heap
     current_addr = h%start
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
-      if(current%size==i .and. current%state==FALSE)then
-        current%state=TRUE! false for free and true for busy
+      if(current%size==i .and. current%state==.false._c_bool)then
+        current%state=.true._c_bool! false for free and true for busy
         ptr = current_addr
         return
-      else if (current%size>=i) then
+      else if (current%size >= i .and. .not. current%state) then
         ptr = current_addr
         call split(current, i)
         return
       end if
       current_addr = current%next
     end do
-    osram=gimme_ram(i)
+    osram=gimme_ram(i + header_size)
     call c_f_pointer(osram, new_block)
 
     current_addr = h%start
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
+      if (.not. c_associated(current%next)) exit
       current_addr = current%next
     end do
 
 
     new_block%size  = i - c_sizeof(new_block)
-    new_block%state = .false._c_bool
+    new_block%state = .true._c_bool
     new_block%next  = c_null_ptr
     new_block%prev  = current_addr
+    if (c_associated(current_addr)) then
+      current%next = osram
+    else
+      h%start = osram
+    end if
+    ptr = osram
   end function findy
   function checkme(h) result(res)
     type(heap), intent(in) :: h
@@ -86,7 +95,8 @@ module heap
       counter = counter + 1
       current_addr = current%next
     end do
-    return counter
+    res=counter
+    return
   end function checkme
 
   function how_much_motion(h) result(res)
@@ -99,7 +109,7 @@ module heap
     current_addr = h%start
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
-      if (current%state==FALSE)
+      if (current%state==.false._c_bool) then
       counter = counter + current%size
       current_addr = current%next
       else
@@ -107,8 +117,9 @@ module heap
       end if
     end do
     res = counter
+    return
   end function how_much_motion
 
 
 
-end module heap
+end module heapy

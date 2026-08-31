@@ -1,9 +1,9 @@
 program shi
     use blocks
     use platform
-    use heap
+    use heapy
     implicit none
-    type(heap)::hippie
+    type(heapy)::hippie
     INTEGER(KIND=4) :: number
     INTEGER(KIND=4) :: number2
     CHARACTER(LEN=11) :: str
@@ -52,7 +52,6 @@ program shi
                         print *,wtf
                     else
                         findy(how_much_for_a_banana,hippie)
-
                     end if
             else
                 write(*,*) 'dawg just enter a valid number...'
