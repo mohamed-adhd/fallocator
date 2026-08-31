@@ -29,7 +29,13 @@ program shi
     print *,tb
     print *,allocate
     do
-
+        read(*,*, iostat=ios) how_much_for_a_banana
+        if (ios == 0) then
+            exit
+        else
+            write(*,*) 'dawg just enter a valid number...'
+        end if
+    end do
 
 
 
