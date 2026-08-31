@@ -36,7 +36,7 @@ module heap
       next_block%prev = new_addr
     end if
   end subroutine split
-  function find(i,h) result(ptr)
+  function findy(i,h) result(ptr)
     type(c_ptr) :: current_addr
     logical::done
     type(block), pointer :: current
@@ -72,7 +72,7 @@ module heap
     new_block%state = .false._c_bool
     new_block%next  = c_null_ptr
     new_block%prev  = current_addr
-  end function find
+  end function findy
   function checkme(h) result(res)
     type(heap), intent(in) :: h
     integer :: res

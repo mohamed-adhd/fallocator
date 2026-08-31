@@ -15,7 +15,7 @@ program shi
     character(len=*), parameter :: tb = "total blocks = 5"
     character(len=*), parameter :: allocate= "(enter how much mb you want to allocate,type -1 for exit) : "
     integer:: how_much_for_a_banana
-    integer :: ios
+    integer :: ios=1
     character(len=142), parameter :: banner(10) = [ character(len=142) :: &
             '                                    _______    ___       __       __        ______     ______     ___   .___________.  ______   .______      ', &
                     '                                    |   ____|  /   \     |  |     |  |      /  __  \   /      |   /   \  |           | /  __  \  |   _  \     ', &
@@ -36,25 +36,24 @@ program shi
         WRITE(str, '(I0)') number
         WRITE(str2, '(I0)') number2
         call execute_command_line('clear')
-        do i = 1, 10
+        do i = 1,10
             print *,banner(i)
         end do
         print *,status
         print *,fm//str2
         print *,tb//str
-        print *,allocate+checkme(hippie)
+        print *,allocate
         do
             read(*,*, iostat=ios) how_much_for_a_banana
+            if (how_much_for_a_banana == -1) exit
             if (ios == 0) then
                 !time to fuck some shit up!!!!
-                if (.not. checkme)
-                    if(ios>100)
+                    if(how_much_for_a_banana>100)
                         print *,wtf
                     else
-                        find(ios,hippie)
+                        findy(how_much_for_a_banana,hippie)
 
                     end if
-                end if
             else
                 write(*,*) 'dawg just enter a valid number...'
             end if
