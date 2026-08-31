@@ -81,8 +81,12 @@ module heap
     current_addr = h%start
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
-      counter = counter + 1
+      if (current%state==FALSE)
+      counter = counter + current%size
       current_addr = current%next
+      else
+        current_addr = current%next
+      end if
     end do
     res = counter
   end function how_much_motion
