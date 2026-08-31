@@ -4,7 +4,8 @@ program shi
     use heap
     implicit none
     type(heap)::hippie
-
+    INTEGER(KIND=4) :: number
+    CHARACTER(LEN=11) :: str
     character(len=*), parameter :: status = "stats   : "
     character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
     character(len=*), parameter :: conf = "we dont have the ressources twinn ☹ , can we allocate : "
@@ -27,16 +28,16 @@ program shi
 
             ]!cooking straight poison , aint no way a human being ever thought of this idea ever , like , no words twin walah
     integer :: i
-
     do while (ios/=-1)
+        WRITE(str, '(I0)') number
         call execute_command_line('clear')
         do i = 1, 10
             print *,banner(i)
         end do
         print *,status
         print *,fm
-        print *,tb
-        print *,allocate
+        print *,tb//str
+        print *,allocate+checkme(hippie)
         do
             read(*,*, iostat=ios) how_much_for_a_banana
             if (ios == 0) then
