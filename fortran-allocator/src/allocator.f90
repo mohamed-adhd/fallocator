@@ -3,9 +3,10 @@ program shi
     use platform
     use heapy
     implicit none
-    type(heapy)::hippie
+    type(heap)::hippie
     INTEGER(KIND=4) :: number
     INTEGER(KIND=4) :: number2
+    type(c_ptr) :: result_ptr
     CHARACTER(LEN=11) :: str
     CHARACTER(LEN=11) :: str2
     character(len=*), parameter :: status = "stats   : "
@@ -14,7 +15,7 @@ program shi
     character(len=*), parameter :: fm = "free memory = 2465 Mb"
     character(len=*), parameter :: tb = "total blocks = 5"
     character(len=*), parameter :: allocate= "(enter how much mb you want to allocate,type -1 for exit) : "
-    integer:: how_much_for_a_banana
+    integer(c_size_t) :: how_much_for_a_banana
     integer :: ios=1
     character(len=142), parameter :: banner(10) = [ character(len=142) :: &
             '                                    _______    ___       __       __        ______     ______     ___   .___________.  ______   .______      ', &
@@ -48,10 +49,10 @@ program shi
             if (how_much_for_a_banana == -1) exit
             if (ios == 0) then
                 !time to fuck some shit up!!!!
-                    if(how_much_for_a_banana>100)
+                    if(how_much_for_a_banana>100) then
                         print *,wtf
                     else
-                        findy(how_much_for_a_banana,hippie)
+                        result_ptr = findy(how_much_for_a_banana, hippie)
                     end if
             else
                 write(*,*) 'dawg just enter a valid number...'

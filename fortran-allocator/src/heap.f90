@@ -16,7 +16,6 @@ module heapy
     type(c_ptr) :: new_addr
     type(block), pointer :: new_block
     type(c_ptr) :: osram
-    integer::header_size=c_sizeof(block)
     type(c_ptr) :: old_next
     type(block), pointer :: next_block
     old_next = ptr%next!at some point u realise this shi is not worth it walah
@@ -37,8 +36,11 @@ module heapy
     end if
   end subroutine split
   function findy(i,h) result(ptr)
-    type(c_ptr) :: osram
     type(block), pointer :: new_block
+    type(c_ptr) :: osram
+    integer(c_size_t) :: header_size =c_sizeof(new_block)
+
+
     type(c_ptr) :: current_addr
     logical::done
     type(block), pointer :: current
@@ -49,7 +51,7 @@ module heapy
     current_addr = h%start
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
-      if(current%size==i .and. current%state==.false._c_bool)then
+      if(current%size==i .and. current%state .eqv. .false._c_bool)then
         current%state=.true._c_bool! false for free and true for busy
         ptr = current_addr
         return
@@ -109,7 +111,7 @@ module heapy
     current_addr = h%start
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
-      if (current%state==.false._c_bool) then
+      if (current%state .eqv. .false._c_bool) then
       counter = counter + current%size
       current_addr = current%next
       else
