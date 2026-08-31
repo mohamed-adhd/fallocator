@@ -6,6 +6,7 @@ program shi
     type(heap)::hippie
 
     character(len=*), parameter :: status = "stats   : "
+    character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
     character(len=*), parameter :: conf = "we dont have the ressources twinn ☹ , can we allocate : "
     character(len=*), parameter :: fm = "free memory = 2465 Mb"
     character(len=*), parameter :: tb = "total blocks = 5"
@@ -42,9 +43,10 @@ program shi
                 if (.not. checkme)
                     if(ios>100)
                         print *,wtf
+                    else
+                        find(ios)
                     end if
                 end if
-
             else
                 write(*,*) 'dawg just enter a valid number...'
             end if
