@@ -61,20 +61,17 @@ module heap
     osram=gimme_ram(i)
     call c_f_pointer(osram, new_block)
 
+    current_addr = h%start
+    do while (c_associated(current_addr))
+      call c_f_pointer(current_addr, current)
+      current_addr = current%next
+    end do
 
 
-
-
-
-
-
-
-
-    
     new_block%size  = i - c_sizeof(new_block)
     new_block%state = .false._c_bool
     new_block%next  = c_null_ptr
-    new_block%prev  = c_null_ptr
+    new_block%prev  = current_addr
   end function find
   function checkme(h) result(res)
     type(heap), intent(in) :: h
@@ -89,7 +86,7 @@ module heap
       counter = counter + 1
       current_addr = current%next
     end do
-    res = counter
+    return counter
   end function checkme
 
   function how_much_motion(h) result(res)

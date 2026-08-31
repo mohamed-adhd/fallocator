@@ -5,7 +5,9 @@ program shi
     implicit none
     type(heap)::hippie
     INTEGER(KIND=4) :: number
+    INTEGER(KIND=4) :: number2
     CHARACTER(LEN=11) :: str
+    CHARACTER(LEN=11) :: str2
     character(len=*), parameter :: status = "stats   : "
     character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
     character(len=*), parameter :: conf = "we dont have the ressources twinn ☹ , can we allocate : "
@@ -29,13 +31,16 @@ program shi
             ]!cooking straight poison , aint no way a human being ever thought of this idea ever , like , no words twin walah
     integer :: i
     do while (ios/=-1)
+        number=checkme(hippie)
+        number2=how_much_motion(hippie)
         WRITE(str, '(I0)') number
+        WRITE(str2, '(I0)') number2
         call execute_command_line('clear')
         do i = 1, 10
             print *,banner(i)
         end do
         print *,status
-        print *,fm
+        print *,fm//str2
         print *,tb//str
         print *,allocate+checkme(hippie)
         do
