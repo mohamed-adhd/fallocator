@@ -1,4 +1,4 @@
-program platform
+module platform
     use, intrinsic :: iso_c_binding
     implicit none
     interface
@@ -8,4 +8,4 @@ program platform
             type(c_ptr) :: ptr
             end function gimme_ram
     end interface
-end program platform
+end module platform

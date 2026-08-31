@@ -55,4 +55,7 @@ module heap
       current_addr = current%next
     end do
   end function find
+  function checkme(i) result(res)
+
+  end function checkme
 end module heap
