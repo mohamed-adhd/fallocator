@@ -1,3 +1,18 @@
+!
+
+
+!           in case someone is reading this monstrocity , i have no idea how i managed to create such thing , but
+!           trust me , with enough redbulls , evrything is achievable 
+
+
+
+
+
+
+
+
+
+
 program shi
     use blocks
     use platform
