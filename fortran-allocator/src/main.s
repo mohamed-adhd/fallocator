@@ -1,3 +1,5 @@
+.intel_syntax noprefix
+
 .global asm_gimme_ram
 .type asm_gimme_ram, @function
 

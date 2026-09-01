@@ -1,21 +1,17 @@
 module platform
     use, intrinsic :: iso_c_binding
     implicit none
-
-    integer(c_size_t), parameter :: ARENA_SIZE = 1000_c_size_t * 1024_c_size_t * 1024_c_size_t ! tweakable shi over here
-    integer(c_int8_t), target, save :: arena(ARENA_SIZE)
-    integer(c_size_t), save :: bump_offset = 0_c_size_t
+    interface
+        function asm_gimme_ram(size) bind(C, name="asm_gimme_ram") result(ptr)
+            import :: c_size_t, c_ptr
+            integer(c_size_t), value :: size
+            type(c_ptr) :: ptr
+        end function
+    end interface
 contains
     function gimme_ram(size) result(ptr)
         integer(c_size_t), intent(in) :: size
         type(c_ptr) :: ptr
-        integer(c_intptr_t) :: base_addr
-        if (bump_offset + size > ARENA_SIZE) then
-            ptr = c_null_ptr
-            return
-        end if
-        base_addr = transfer(c_loc(arena(bump_offset + 1_c_size_t)), base_addr)
-        ptr = transfer(base_addr, ptr)
-        bump_offset = bump_offset + size
-    end function gimme_ram
+        ptr = asm_gimme_ram(size)
+    end function
 end module platform
