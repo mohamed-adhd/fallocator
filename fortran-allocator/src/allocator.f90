@@ -5,7 +5,7 @@ program shi
     implicit none
     type(heap)::hippie
     INTEGER(KIND=4) :: number
-    INTEGER(KIND=4) :: number2
+    integer(c_size_t) :: number2
     type(c_ptr) :: result_ptr
     CHARACTER(LEN=11) :: str
 
@@ -15,7 +15,7 @@ program shi
 
 
     integer :: choice
-    CHARACTER(LEN=11) :: str2
+    CHARACTER(LEN=30) :: str2
     character(len=*), parameter :: status = "stats   : "
     character(len=*), parameter :: rd = "reached starting findy   : "
     character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
@@ -44,11 +44,12 @@ program shi
 
             ]!cooking straight poison , aint no way a human being ever thought of this idea ever , like , no words twin walah
     integer :: i
+
     do while (ios/=-1)
         number=checkme(hippie)
         number2=how_much_motion(hippie)
         WRITE(str, '(I0)') number
-        WRITE(str2, '(I0)') number2
+        str2 = fmt_bytes(int(number2, c_size_t))
         call execute_command_line('clear')
         do i = 1,10
             print *,banner(i)
@@ -57,13 +58,14 @@ program shi
         print *,fm//str2
         print *,tb//str
         print *,allocate
+
         do while (ios /= -1)
 
             number = checkme(hippie)
             number2 = how_much_motion(hippie)
 
             write(str, '(I0)') number
-            write(str2, '(I0)') number2
+            str2 = fmt_bytes(int(number2, c_size_t))
 
             call execute_command_line('clear')
 

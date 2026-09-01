@@ -8,6 +8,24 @@ module heapy
       type(c_ptr) :: start = c_null_ptr
   end type heap
   contains
+
+  character(len=20) function fmt_bytes(n) result(s)
+    integer(c_size_t), intent(in) :: n
+    real(8) :: mb
+    if (n >= 1024_c_size_t*1024_c_size_t) then
+      mb = real(n,8) / (1024.0_8*1024.0_8)
+      write(s, '(F0.2,A)') mb, " Mb"
+    else if (n >= 1024_c_size_t) then
+      write(s, '(F0.2,A)') real(n,8)/1024.0_8, " Kb"
+    else
+      write(s, '(I0,A)') n, " B"
+    end if
+  end function fmt_bytes
+
+
+
+
+
   subroutine split(ptr, i)
     type(block), pointer, intent(inout) :: ptr
     integer(c_size_t), intent(in) :: i
