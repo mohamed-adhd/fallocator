@@ -13,8 +13,8 @@ program shi
     character(len=*), parameter :: rd = "reached starting findy   : "
     character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
     character(len=*), parameter :: conf = "we dont have the ressources twinn ☹ , can we allocate : "
-    character(len=*), parameter :: fm = "free memory = 2465 Mb"
-    character(len=*), parameter :: tb = "total blocks = 5"
+    character(len=*), parameter :: fm = "free memory = "
+    character(len=*), parameter :: tb = "total blocks = "
     character(len=*), parameter :: allocate= "(enter how much mb you want to allocate,type -1 for exit) : "
     integer(c_size_t) :: how_much_for_a_banana
     integer :: ios=1
@@ -45,20 +45,20 @@ program shi
         print *,fm//str2
         print *,tb//str
         print *,allocate
-        do
-            read(*,*, iostat=ios) how_much_for_a_banana
-            if (how_much_for_a_banana == -1) exit
+        do while (ios /= -1)
+            read(*,*,iostat=ios) how_much_for_a_banana
+            if (ios == -1) exit
             if (ios == 0) then
-                !time to fuck some shit up!!!!
-                    if(how_much_for_a_banana>100) then
-                        print *,wtf
-                    else
-                        print*,rd
-                        result_ptr = findy(how_much_for_a_banana, hippie)
-                    end if
+                if (how_much_for_a_banana > 100) then
+                    print *, wtf
+                else
+                    print *, rd
+                    result_ptr = findy(how_much_for_a_banana, hippie)
+                end if
             else
-                write(*,*) 'dawg just enter a valid number...'
+                print *, 'dawg just enter a valid number...'
             end if
+
         end do
     end do
 
