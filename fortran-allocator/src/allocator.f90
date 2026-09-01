@@ -16,8 +16,13 @@ program shi
     character(len=*), parameter :: fm = "free memory = "
     character(len=*), parameter :: tb = "total blocks = "
     character(len=*), parameter :: allocate= "(enter how much mb you want to allocate,type -1 for exit) : "
+    character(len=*), parameter :: ch1= "1->allocate"
+    character(len=*), parameter :: ch2= "1->free blocks"
+
     integer(c_size_t) :: how_much_for_a_banana
+    integer(c_size_t) :: how_much_for_a_bananas
     integer :: ios=1
+    integer :: ioss=1
     character(len=142), parameter :: banner(10) = [ character(len=142) :: &
             '                                    _______    ___       __       __        ______     ______     ___   .___________.  ______   .______      ', &
                     '                                    |   ____|  /   \     |  |     |  |      /  __  \   /      |   /   \  |           | /  __  \  |   _  \     ', &
@@ -47,6 +52,7 @@ program shi
         print *,allocate
         do while (ios /= -1)
 
+
             number = checkme(hippie)
             number2 = how_much_motion(hippie)
 
@@ -62,23 +68,32 @@ program shi
             print *, status
             print *, fm//str2
             print *, tb//str
-            print *, allocate
+            print *,ch1
+            print *,ch2
+
 
             read(*,*,iostat=ios) how_much_for_a_banana
 
             if (ios == -1) exit
-
-            if (ios == 0) then
-                if (how_much_for_a_banana > 100) then
-                    print *, wtf
+            if (ios == 1 ) then
+                if (ioss == 0) then
+                    print *, allocate
+                    read(*,*,iostat=ioss) how_much_for_a_bananas
+                    if (how_much_for_a_bananas > 100) then
+                        print *, wtf
+                    else
+                        result_ptr = findy(how_much_for_a_bananas, hippie)
+                    end if
                 else
-                    print *, "MAIN: before findy"
-                    result_ptr = findy(how_much_for_a_banana, hippie)
-                    print *, "MAIN: after findy"
+                    print *, 'dawg just enter a valid number...'
                 end if
-            else
-                print *, 'dawg just enter a valid number...'
+                else if (ios==2) then
+                    free_dave(hippie)
+                else
+                print *, 'u gotta be kidding me '
+
             end if
+
 
         end do
     end do
