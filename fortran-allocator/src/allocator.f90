@@ -46,14 +46,35 @@ program shi
         print *,tb//str
         print *,allocate
         do while (ios /= -1)
+
+            number = checkme(hippie)
+            number2 = how_much_motion(hippie)
+
+            write(str, '(I0)') number
+            write(str2, '(I0)') number2
+
+            call execute_command_line('clear')
+
+            do i = 1, 10
+                print *, banner(i)
+            end do
+
+            print *, status
+            print *, fm//str2
+            print *, tb//str
+            print *, allocate
+
             read(*,*,iostat=ios) how_much_for_a_banana
+
             if (ios == -1) exit
+
             if (ios == 0) then
                 if (how_much_for_a_banana > 100) then
                     print *, wtf
                 else
-                    print *, rd
+                    print *, "MAIN: before findy"
                     result_ptr = findy(how_much_for_a_banana, hippie)
+                    print *, "MAIN: after findy"
                 end if
             else
                 print *, 'dawg just enter a valid number...'
