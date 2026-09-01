@@ -8,6 +8,27 @@ program shi
     INTEGER(KIND=4) :: number2
     type(c_ptr) :: result_ptr
     CHARACTER(LEN=11) :: str
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    integer :: choice
     CHARACTER(LEN=11) :: str2
     character(len=*), parameter :: status = "stats   : "
     character(len=*), parameter :: rd = "reached starting findy   : "
@@ -17,7 +38,7 @@ program shi
     character(len=*), parameter :: tb = "total blocks = "
     character(len=*), parameter :: allocate= "(enter how much mb you want to allocate,type -1 for exit) : "
     character(len=*), parameter :: ch1= "1->allocate"
-    character(len=*), parameter :: ch2= "1->free blocks"
+    character(len=*), parameter :: ch2= "2->free blocks"
 
     integer(c_size_t) :: how_much_for_a_banana
     integer(c_size_t) :: how_much_for_a_bananas
@@ -52,7 +73,6 @@ program shi
         print *,allocate
         do while (ios /= -1)
 
-
             number = checkme(hippie)
             number2 = how_much_motion(hippie)
 
@@ -68,32 +88,46 @@ program shi
             print *, status
             print *, fm//str2
             print *, tb//str
-            print *,ch1
-            print *,ch2
 
+            print *, ch1
+            print *, ch2
 
-            read(*,*,iostat=ios) how_much_for_a_banana
+            read(*,*,iostat=ios) choice
 
             if (ios == -1) exit
-            if (ios == 1 ) then
-                if (ioss == 0) then
-                    print *, allocate
-                    read(*,*,iostat=ioss) how_much_for_a_bananas
-                    if (how_much_for_a_bananas > 100) then
-                        print *, wtf
-                    else
-                        result_ptr = findy(how_much_for_a_bananas, hippie)
-                    end if
-                else
-                    print *, 'dawg just enter a valid number...'
-                end if
-                else if (ios==2) then
-                    free_dave(hippie)
-                else
-                print *, 'u gotta be kidding me '
 
+            if (ios /= 0) then
+                print *, 'dawg just enter a valid number...'
+                cycle
             end if
 
+            if (choice == 1) then
+
+                print *, allocate
+                read(*,*,iostat=ios) how_much_for_a_banana
+
+                if (ios == -1) exit
+
+                if (ios /= 0) then
+                    print *, 'dawg just enter a valid number...'
+                    cycle
+                end if
+
+                if (how_much_for_a_banana > 100) then
+                    print *, wtf
+                else
+                    result_ptr = findy(how_much_for_a_banana, hippie)
+                end if
+
+            else if (choice == 2) then
+
+                call free_dave(hippie)
+
+            else
+
+                print *, 'u gotta be kidding me'
+
+            end if
 
         end do
     end do

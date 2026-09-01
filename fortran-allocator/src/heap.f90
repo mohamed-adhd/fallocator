@@ -101,7 +101,7 @@ module heapy
 
     print*,rd2
 
-    new_block%size  = i - c_sizeof(new_block)
+    new_block%size  = i 
     new_block%state = .true._c_bool
     new_block%next  = c_null_ptr
     new_block%prev  = current_addr
@@ -162,6 +162,23 @@ module heapy
   end function how_much_motion
 
 
+  subroutine free_dave(h)
+    type(heap), intent(in) :: h
+    type(c_ptr) :: current_addr
+    type(block), pointer :: current
+
+    current_addr = h%start
+
+    do while (c_associated(current_addr))
+      call c_f_pointer(current_addr, current)
+
+      if (current%state .eqv. .true._c_bool) then
+        current%state = .false._c_bool
+      end if
+
+      current_addr = current%next
+    end do
+  end subroutine free_dave
 
 
 
@@ -170,8 +187,5 @@ module heapy
 
 
 
-
-
-  
 
 end module heapy
