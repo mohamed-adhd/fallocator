@@ -89,7 +89,12 @@ module heapy
     end do
     print*,rd1
 
-    osram=gimme_ram(i + header_size)
+
+    osram = gimme_ram(i + header_size)
+    if (.not. c_associated(osram)) then
+      ptr = c_null_ptr
+      return   
+    end if
     call c_f_pointer(osram, new_block)
 
     current_addr = h%start
@@ -153,7 +158,7 @@ module heapy
   end function how_much_motion
 
 
-  subroutine free_dave(h)!kendrick reference 
+  subroutine free_dave(h)!kendrick reference
     type(heap), intent(in) :: h
     type(c_ptr) :: current_addr
     type(block), pointer :: current

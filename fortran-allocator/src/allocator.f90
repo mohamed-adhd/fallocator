@@ -19,7 +19,7 @@ program shi
     character(len=*), parameter :: status = "stats   : "
     character(len=*), parameter :: rd = "reached starting findy   : "
     character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
-    character(len=*), parameter :: conf = "we dont have the ressources twinn ☹ , can we allocate : "
+    character(len=*), parameter :: conf = "we dont have the ressources big man ☹"
     character(len=*), parameter :: fm = "free memory = "
     character(len=*), parameter :: tb = "total blocks = "
     character(len=*), parameter :: allocate= "(enter how much mb you want to allocate,type -1 for exit) : "
@@ -118,7 +118,10 @@ program shi
                     end if
                 end do
                 result_ptr = findy(how_much_for_a_banana * 1024_c_size_t * 1024_c_size_t, hippie)
-
+                if (.not. c_associated(result_ptr)) then
+                    print *, conf, how_much_for_a_banana
+                    CALL sleep(3)
+                end if
 
             else if (choice == 2) then
 
