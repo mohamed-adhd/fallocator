@@ -14,20 +14,6 @@ program shi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     integer :: choice
     CHARACTER(LEN=11) :: str2
     character(len=*), parameter :: status = "stats   : "
@@ -116,7 +102,7 @@ program shi
                 if (how_much_for_a_banana > 100) then
                     print *, wtf
                 else
-                    result_ptr = findy(how_much_for_a_banana, hippie)
+                    result_ptr = findy(how_much_for_a_banana * 1024_c_size_t * 1024_c_size_t, hippie)
                 end if
 
             else if (choice == 2) then

@@ -76,7 +76,7 @@ module heapy
 
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
-      if(current%size==i .and. current%state .eqv. .false._c_bool)then
+      if(current%size==i .and. (current%state .eqv. .false._c_bool))then
         current%state=.true._c_bool! false for free and true for busy
         ptr = current_addr
         return
@@ -101,7 +101,7 @@ module heapy
 
     print*,rd2
 
-    new_block%size  = i 
+    new_block%size  = i
     new_block%state = .true._c_bool
     new_block%next  = c_null_ptr
     new_block%prev  = current_addr
