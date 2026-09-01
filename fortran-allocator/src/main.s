@@ -1,11 +1,13 @@
-gimme_ram:
+.global asm_gimme_ram
+.type asm_gimme_ram, @function
+
+asm_gimme_ram:
     mov rsi, rdi
     xor rdi, rdi
-    mov rdx, 3
-    mov r10, 0x22
+    mov edx, 3
+    mov r10d, 0x22
     mov r8, -1
-    xor r9, r9
-    mov rax, 9
+    xor r9d, r9d
+    mov eax, 9
     syscall
-    mov ebx,0
-    syscall
+    ret
