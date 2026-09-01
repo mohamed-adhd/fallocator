@@ -10,6 +10,7 @@ program shi
     CHARACTER(LEN=11) :: str
     CHARACTER(LEN=11) :: str2
     character(len=*), parameter :: status = "stats   : "
+    character(len=*), parameter :: rd = "reached starting findy   : "
     character(len=*), parameter :: wtf = "nigga why are u as an individual allocating more than 100 mb?"
     character(len=*), parameter :: conf = "we dont have the ressources twinn ☹ , can we allocate : "
     character(len=*), parameter :: fm = "free memory = 2465 Mb"
@@ -52,6 +53,7 @@ program shi
                     if(how_much_for_a_banana>100) then
                         print *,wtf
                     else
+                        print*,rd
                         result_ptr = findy(how_much_for_a_banana, hippie)
                     end if
             else

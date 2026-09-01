@@ -39,6 +39,10 @@ module heapy
     type(block), pointer :: new_block
     type(c_ptr) :: osram
     integer(c_size_t) :: header_size =c_sizeof(new_block)
+    character(len=*), parameter :: rd = "reached before do loop    : "
+    character(len=*), parameter :: rd = "reached after do loop    : "
+    character(len=*), parameter :: rd = "reached before allocating new block do loop    : "
+    character(len=*), parameter :: rd = "reached before do loop    : "
 
 
     type(c_ptr) :: current_addr
@@ -49,6 +53,8 @@ module heapy
     type(c_ptr) :: ptr
     ptr = c_null_ptr
     current_addr = h%start
+    print*,rd
+
     do while (c_associated(current_addr))
       call c_f_pointer(current_addr, current)
       if(current%size==i .and. current%state .eqv. .false._c_bool)then
@@ -62,6 +68,8 @@ module heapy
       end if
       current_addr = current%next
     end do
+    print*,rd1
+
     osram=gimme_ram(i + header_size)
     call c_f_pointer(osram, new_block)
 
@@ -72,6 +80,7 @@ module heapy
       current_addr = current%next
     end do
 
+    print*,rd2
 
     new_block%size  = i - c_sizeof(new_block)
     new_block%state = .true._c_bool
@@ -83,6 +92,8 @@ module heapy
       h%start = osram
     end if
     ptr = osram
+    print*,rd3
+
   end function findy
   function checkme(h) result(res)
     type(heap), intent(in) :: h
