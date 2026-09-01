@@ -124,10 +124,10 @@ make clean
 
 <h2 align="center">Why I Built This</h2>
 
-nah , this is the wildest one yet , i m pretty sure nobody even managed to form a thought ressembling this idea , an allocator is already something out of regular , and fortran wasnt helping either , i m not sure how this evene worked , and the worst part ? assembly somehow got involved in this ! , but yea it was either asseembly or use on of fortran's allocator and cheat my way 
+Nah, this is the wildest one yet. I'm pretty sure nobody even managed to form a thought resembling this idea. The allocator is already something out of regular, and the fortran  wasn't helping either. I'm not sure how this even worked, and the worst part ? assembly somehow got involved in this ! but yea it was either assembly or the use on of fortran’s allocator and cheated my way.
 
 <h2 align="center">Developer Notes</h2>
-- as always , not a production elevel allocator 
+- as always , not a production level allocator 
 - you wouldnt pay me a million to touch fortran again, neither this repo
 - the allocator is not capabel of joinging free blocks  , it can only use free whole blocks
 - allocator cannot free specific blocks , the free option nukes the full list with keeping the blocks intact 
