@@ -90,7 +90,6 @@ program shi
             end if
 
             if (choice == 1) then
-
                 print *, allocate
                 read(*,*,iostat=ios) how_much_for_a_banana
 
@@ -101,11 +100,25 @@ program shi
                     cycle
                 end if
 
-                if (how_much_for_a_banana > 100) then
+                do while (how_much_for_a_banana>100 .or. how_much_for_a_banana<0)
                     print *, wtf
-                else
-                    result_ptr = findy(how_much_for_a_banana * 1024_c_size_t * 1024_c_size_t, hippie)
-                end if
+                    print *, allocate
+                    read(*,*,iostat=ios) how_much_for_a_banana
+
+                    if (ios == -1) exit
+
+                    if (ios /= 0) then
+                        print *, 'dawg just enter a valid number...'
+                        cycle
+                    end if
+
+                    if (how_much_for_a_banana > 100) then
+                        print *, wtf
+
+                    end if
+                end do
+                result_ptr = findy(how_much_for_a_banana * 1024_c_size_t * 1024_c_size_t, hippie)
+
 
             else if (choice == 2) then
 
